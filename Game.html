@@ -1,0 +1,687 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+ <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet"> 
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">  
+	 <div class="loader">
+	 <span></span>
+	 <span></span>
+	 <span></span>
+	 <span></span>
+	 <span></span>
+	 <span></span>
+	 <span></span>
+			</div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>		   
+			
+	   <meta name="viewport" charset="UTF-8" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">	 
+		<title>Page Title</title>
+		
+		<style>
+		
+
+body {
+	color:black;
+   background-color:black;
+}
+
+#p2,#p1{
+	text-align:center;
+	font:small-caps 40px sans-serif;
+	color:green;
+}
+
+#p2{
+margin:0px;
+	color:teal;
+	font-size:15px;
+}
+.loader{
+	position:absolute;
+	top:40%;
+	left:40%;
+	transform:translate (-50%, -50%);
+	width:70px;
+	display:flex;
+}
+.loader span{
+	width:10px;
+	height:60px;
+	background:white;
+	margin:0px 1px;
+	animation:loading 800ms ease-in-out infinite;
+}
+.loader span:nth-child(1){
+	background:#2eeca8;
+	animation-delay:-700ms;
+}
+.loader span:nth-child(2){
+	background:#eade3d;
+	animation-delay:-600ms;
+}
+.loader span:nth-child(3){
+	background:#55acee;
+	animation-delay:-500ms;
+}
+.loader span:nth-child(4){
+	background:#2eeca8;
+	animation-delay:-400ms;
+}
+.loader span:nth-child(5){
+	background:#09b7bf;
+	animation-delay:-300ms;
+}
+.loader span:nth-child(6){
+	background:#ea3d8c;
+	animation-delay:-200ms;
+}
+.loader span:nth-child(7){
+	background:orange;
+	animation-delay:-100ms;
+}
+
+
+@keyframes loading{
+	0%, 60%, 100%{
+		transform:scaleY(0.01);
+	}
+	35%{
+		transform:scale(1);
+	}
+}
+
+
+#div{
+	width:50px;
+	height:50px;
+	border-radius:50%;
+	text-align:center;
+	background-color: #22222;
+	
+}
+#b,#b1{
+	 width:100px;
+	height: 40px;
+	margin:0 0 5px;
+	border: 2px outset blue;
+	color: white;
+	font-weight: bold;
+	font-size: small;
+	border-radius:10px;
+	background-color:#009788;
+	opacity: 0.8;
+}
+#b:active{
+  outline:none;
+};
+#b1{
+	width:150px;
+	height:70px;
+}
+#value:active{
+	box-shadow:none;
+	top:16px;
+}
+#select{
+	width:150px;
+	height:50px;
+	background-color:#0099e6;
+	border:5px solid black;
+	border-radius:5px;
+	box-shadow:0px 8px 5px #0099e6,0px 8px 10px #222222;
+}
+#select:active{
+	background-color:grey;
+	top:16px;
+}
+#b1:active{
+	outline:none;
+};
+#b{
+	font: small-caps 3em Berkshire Swash;
+	 
+}
+input[type="checkbox"]{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+width:50px;
+height:27px;
+-webkit-appearance:none;
+background-color:black;
+border:2px solid white;
+box-shadow:0 0 5px ;
+outline:none;
+border-radius:50px;
+transition:0.5s;
+}
+input:checked[type="checkbox"]{
+background:#417BBD;
+}
+input[type="checkbox"]:before{
+content:"";
+position:absolute;
+top:-1px;
+left:0px;
+width:20px;
+height:20px;
+background:black;
+border:2px solid white;
+border-radius:50%;
+transition:0.5s;
+}
+input:checked[type="checkbox"]:before{
+left:22px;
+background:transparent;
+}
+
+		
+		</style>
+	</head>
+	 <body  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" oncontextmenu="return false"> 
+
+<script type="text/javascript">
+
+var audio = new Audio("https://nf1f8200-a.akamaihd.net/downloads/ringtones/files/mp3/game-of-thrones-theme-song-ringtone-30782.mp3");
+audio.loop = true;
+var Blasts ;
+var isJump = false;
+console.log =()=>{}
+console.error =()=>{}
+console.warn =()=>{}
+var spriteSheet=[],Arrow_img;
+var player;
+var count1;
+var timer;
+var sprites;
+var enemies = []
+var fireball = []
+var blast_img;
+var blast = [];
+var mod;
+var won,lose;
+var arrow=[];
+var enemy=[];
+var audio,audio1,audio2;
+var score = 0;
+var fire;
+var Theme,Theme_1,Theme_2,theme = [];
+var road;
+var strt;
+var target = 10;
+var points;
+var _strt = false;
+var dx;
+var platform =[];
+var txt,names;
+var counts= 300;
+var button,button1,button2,button3,button4;
+var num;
+function preload(){
+spriteSheet[0] = loadImage("https://image.ibb.co/mHccfL/download.png");
+Arrow_img = loadImage("https://image.ibb.co/epXKvL/arrow-bow-PNG1.png");
+enemy[0] = loadImage("https://image.ibb.co/ejbsh0/flying-dragon-gold.png");
+enemy[1] = loadImage("https://image.ibb.co/hnmyS0/flying-twin-headed-dragon-blue.png")
+Theme = loadImage("https://i.imgur.com/vH8Z10Xh.jpg");
+fire = loadImage("https://image.ibb.co/iB6UJp/fireball-clipart-fiery-10.png");
+blast_img = loadImage("https://i.ibb.co/FWknJ89/explosion-Full.png");
+sprites = loadImage("https://i.ibb.co/Br0P59p/sprites.png");
+}
+/////هذا رابط صور  👆 المتحرك
+function setup(){
+createCanvas(windowWidth,windowHeight).position(0,0);
+background("white"); 
+frameRate(0);
+strt = createButton("Start").id("b1").style("font-family"," 'Luckiest Guy', cursive").position(width/2-50,80).mouseClicked(start_game);
+	
+txt = createP("Game <br>Of <br>Javascript").position(width/2-80,height/2-50).style("align","center").id("p1");
+count1 = createP("").position(10,20).id("p2").hide();
+names = createDiv("Kh@lid").style("align","center").position(10,50).id("p1");
+names.hide();
+ player = new Player(); 
+// road = new Road();
+	 //road.div.html("")
+ 
+  theme.push(new Background(0,0));
+ theme.push(new Background(width,0));
+ points = new Score()
+ button = createButton("Next Level").id("b1");
+button.position(width/2-50,height-50).style("font-family"," 'Luckiest Guy', cursive");
+button.mousePressed(difficult);
+button.hide();
+
+button1 = createButton("Restart").id("b1");
+button1.position(width/2-50,height-50).style("font-family"," 'Luckiest Guy', cursive");
+button1.mouseClicked(restart);
+button1.hide();
+
+
+dx = 1;
+button3 = createButton("Jump").id("b");
+button3.position(50,height-50).style("font-family"," 'Luckiest Guy', cursive");
+button3.mouseClicked(jump).hide();
+
+button4 = createButton("Shoot").id("b");
+button4.position(width-150,height-50).style("font-family"," 'Luckiest Guy', cursive");
+button4.mouseClicked(shoots).hide();
+won = createDiv("You Won <br>Congratulations").id("won").position(10,height/2).style("font","small-caps 40px Berkshire Swash").style("text-align","center");
+won.hide();
+
+lose = createDiv("You Lose<br>Score:"+score).id("lose").position(width/3.7,height/2).style("font","small-caps 30px Berkshire Swash").style("text-align","center");
+lose.hide();
+button2 = createCheckbox("label",false).changed(check).position(width-80,20).style("width","50px").style("height","5px").hide();
+for(var i =0;i<width*2;i+=100){
+platform.push(new Platform(i,height-100,100,100));
+}
+}
+function check(){
+	if(this.checked()){
+		audio.pause();
+	}
+	else{
+	   audio.play() ;
+	}
+}
+function start_game(){
+	frameRate(999);
+	strt.hide();
+	button2.show();
+	_strt = true;
+	button3.show();
+button4.show();
+	txt.hide();
+   names.show();
+	audio.play();
+   timer =  setInterval(countDown,1000)
+}
+function draw(){
+ background(0);
+ lose.html("You Lose<br>Score:"+score);
+ if(_strt){
+ for(var t of theme){
+ t.show();
+ }
+ for(let p of platform){
+ p.show()
+ }
+ for(var i = 0;i<theme.length;i++){
+	 if(theme[i].x<=-theme[i].w){
+		 theme[i].x = width-1;
+	 }
+ }
+ for(var i = 0;i<platform.length;i++){
+	 if(platform[i].x<=-platform[i].w){
+		 platform[i].x = width*2-platform[i].w;
+	 }
+ }
+ 
+if(frameCount %counts==0) {
+  enemies.push(new Enemy())   
+ }
+ points.show()
+ 
+// countDown()
+ // road.show();
+  player.show();
+  player.update();
+   if(player.sx>player.sw*8){
+		 player.sx = 0;
+	   if(player.sy==64*19){
+	  player.sy = player.sw*11; 
+	  arrow.push(new Arrow(player.x+player.w/2,player.y+player.h/2));
+	  
+		 }
+	 }
+	 for(var i =0;i<arrow.length;i++){
+		 arrow[i].show();
+		 arrow[i].update()
+	 }
+	 for(var i =0;i<enemies.length;i++){
+		 enemies[i].show();
+		 enemies[i].update();
+	 }
+	   for(var i =0;i<enemies.length;i++){
+	  if(enemies[i].x<-enemies[i].w){
+		  enemies.splice(i,1);
+	  }
+	  }
+	 for(var i =0;i<arrow.length;i++){ 
+	 if(arrow[i].x>width){
+		 arrow.splice(i,1);
+	 }
+	 }
+	for(var i =0;i<arrow.length;i++){ 
+	for(var j =0;j<enemies.length;j++){
+   if(collision(arrow[i],enemies[j])){
+	   
+	   blast.push(new Blast(enemies[i].x,enemies[i].y))
+	 for(var k =0;k<blast.length;k++){ 
+  
+	   
+		if(blast[k].sx>blast[k].sw*8){
+	blast.splice(k,1);
+}
+
+		 
+		 
+		 }
+	   //audio2.volume= 0.5;
+	  enemies.splice(j,1);
+	   arrow.splice(i,1); 
+	   score++;
+   }
+   }  
+	}
+	if(score ==target){
+		game_win();
+   for(var i =0;i<arrow.length;i++){ 
+ arrow.splice(i,1);
+ }  
+	}
+for(var i =0;i<enemies.length;i++){
+	if(collision(player,enemies[i])){
+		game_over();
+	}
+}
+for(let blasts of blast){
+	blasts.show();
+	blasts.update()
+}
+}
+}
+function jump(){
+  player.jump();
+}
+function shoots(){
+	player.sy = 64*19;
+   player.sx = 0;
+}
+
+function Player(){
+	this.x = 50;
+	this.y = height-150;
+	this.w = 50;
+	this.h = 50;
+	this.sx =  0;
+	this.sy =  64*11;
+	this.sw = 64;
+	this.sh = 64;
+	this.mass =3;
+	this.vel = 0;
+	this.adder = this.sw;
+	this.gravity = 0.2;
+	this.jumping = false;
+	this.show = function(){
+image(spriteSheet[0],this.x,this.y,this.w,this.h,this.sx,this.sy,this.sw,this.sh);
+
+	}
+	this.jump = function(){
+		if(!this.jumping){
+			this.jumping = true;
+			this.vel = -this.mass*2.5; 
+		}
+	}
+	this.update = function(){
+	this.vel+=this.gravity;
+	this.y+=this.vel;
+	 if(this.y>=height-150){
+		 this.y = height-150;
+	   //  this.acc = 2.4;
+		 this.vel = 0;
+		  this.jumping = false;
+	  
+	 }
+	 if(this.y<height/2-50){
+	   this.y = height/2-50;
+	   // isJump = false;		
+		// this.sx = 0;
+		// this.adder = this.sw;
+		 this.vel = 0;
+	 }
+	 
+	 
+	if(frameCount%3==0){
+	 this.sx+=this.adder;
+	 }
+	 
+	 
+	
+	 
+ 
+	
+	}
+}
+
+
+function Arrow(x,y){
+	this.x = x;
+	this.y = y;
+	this.w = 50;
+	this.h = 10;
+	this.img = Arrow_img;
+	this.show = function(){
+image(this.img,this.x,this.y,this.w,this.h);
+	}
+	this.update = function(){
+		this.x+=5;
+	}
+	
+}
+function Enemy(){
+	this.x = width;
+	this.y = random(height/2,height-150);
+	this.w = 100;
+	this.h = 100;
+	this.sx = 0;
+	this.sy = 64*6;
+	this.sw = 64*2+20;
+	this.sh = 64*2;
+	this.dy= 1;
+	this.r = floor(random(0,enemy.length));
+	this.img = enemy[this.r]
+	this.show = function(){
+image(this.img,this.x,this.y,this.w,this.h,this.sx,this.sy,this.sw,this.sh);
+	}
+	this.update = function(){
+		this.x-=dx;
+		if(frameCount %10==0)
+		this.sx+=this.sw;
+		if(this.sx>this.sw*2){
+			this.sx = 0;
+		}
+	}
+}
+function collision(a,b){
+  try{return a.x < b.x + b.w/1.5 &&
+		 a.x + a.w/1.5 >b.x &&
+		 a.y < b.y + b.h/1.5 &&
+		 a.y + a.h/1.5 > b.y;
+}
+catch(err){}
+}
+function Background(x,y){
+	this.x = x;
+	this.y = y;
+	this.w = width;   
+	this.h = height;
+	this.img = Theme;
+	this.show = function(){
+		image(this.img,this.x,this.y,this.w,this.h);
+		this.x-=0.5;
+	}
+}
+function Score(){
+   this.x = width/2-50;
+   this.y = 20;
+   this.size = 20;
+   this.div = createDiv("").position(this.x,this.y).id("d")
+   this.div.style("color","black").style("font-family"," 'Luckiest Guy', cursive").style("font-size","20px");
+   this.show = function(){
+	this.div.html("Score:"+score);
+   }
+}
+
+function difficult(){
+frameRate(255);
+	score = 0;
+	counts -= 50;
+  for(var j =0;j<enemies.length;j++){
+  enemies.splice(j,3);
+  } 
+  for(var p =0;p<platform.length;p++){
+  platform[p].dx+=1;
+  } 
+  
+  player = new Player() ;
+  player.img = spriteSheet[0];
+  target+=10; 
+  button.hide();
+ button3.show();
+button4.show(); 
+ won.hide() ;
+ names.show()
+ ///road.div.show();
+  dx+=2;
+}
+function game_win(){
+  frameRate(0);
+   fill(0);
+   rect(0,0,width,height);
+	won.show();
+	button.show(); 
+	names.hide()
+	button3.hide();
+button4.hide();
+
+   // road.div.hide();
+}
+function game_over(){
+  frameRate(0);
+   fill(0);
+   rect(0,0,width,height);
+ lose.show()
+	button1.show(); button3.hide();
+button4.hide();
+   // road.div.hide();
+	names.hide()
+}
+function restart(){
+frameRate(255);
+	score = 0;
+  for(var j =0;j<enemies.length;j++){
+  enemies.splice(j,3);
+  } 
+  button3.show();
+button4.show();
+  counts = 300;
+  names.show();
+  player = new Player();
+  player.img = spriteSheet[0];
+ target = 10;
+ dx = 0.5;
+ button1.hide()
+ lose.hide();
+// road.div.show();
+}
+function Blast(x,y){
+	this.x = x;
+	this.y = y;
+	this.w = 100;
+	this.h = 100;
+	this.sx = 0;
+	this.sy = 256;
+	this.sw = 256;
+	this.sh = 256;
+	this.img = blast_img;
+	this.show = function(){
+	push()
+	//fill(this.col);
+image(this.img,this.x,this.y,this.w,this.h,this.sx,this.sy,this.sw,this.sh);
+pop()
+	}
+	this.update = function(){
+	 if(frameCount%2==0){
+		 this.sx+=this.sw;
+		
+	 }
+	}
+}
+ 
+ let ends = new Date("Apr 15, 2019 15:37:25").getTime();
+
+// Count down 
+
+function countDown(){
+	let now = new Date().getTime();
+	let distance = ends - now;	
+	let d = Math.floor(distance / (1000 * 60 * 60 * 24));
+	let h = Math.floor((distance % (1000 * 60 * 60 * 24))/(1000 * 60 * 60));
+	let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	let s = Math.floor((distance % (1000 * 60)) / 1000);	
+	// Show time
+	count1.show();	
+	count1.html('<i class="fa fa-clock-o"></i>  ' + ' ' +  d + ':' + h + ':' + m + ':'+ s);
+		if (distance < 0){
+		clearInterval(timer);
+		count1.html( "RELEASED! ");
+	}
+}
+
+ 
+function info(){
+	alert(`لقتل التنين ، يمكنك اطلاق النار السهام من خلال النقر على الشاشة.
+يمكنك تفادي التنين عن طريق القفز.`);
+}
+
+function Platform(x,y,w,h){
+	this.x = x;
+	this.y = y;
+	this.w = w;
+	this.h = h;
+	this.show = function(){
+image(sprites,this.x,this.y,this.w,this.h,0,0,17,20);
+//this.x-=1;
+	}
+}
+function collisionCheck(character, platform){ 
+			   var vectorX = (character.x + (character.w/2)) - (platform.x + (platform.w/2)); 
+			   var vectorY = (character.y + (character.h/2)) - (platform.y + (platform.h/2));  
+		 var halfWidths = (character.w/2) + (platform.w/2);   
+		   var halfHeights = (character.h/2.5) + (platform.h/2);
+		 var collisionDirection = null;  
+	 if(Math.abs(vectorX) < halfWidths && Math.abs(vectorY) < halfHeights){	 
+				var offsetX = halfWidths - Math.abs(vectorX); 
+					var offsetY = halfHeights - Math.abs(vectorY);	 
+				if(offsetX < offsetY){		 
+				if (vectorX > 0){				 collisionDirection = "left";	 character.x += offsetX;		   
+						
+						}
+			 else {				 collisionDirection = "right";			 //	character.x -= offsetX;	 
+					 }	 
+				 } 
+			 else {	 
+					 if (vectorY > 0){
+									  collisionDirection = "top";				 character.y += offsetY;		 
+										  }
+			  else{  
+							  collisionDirection = "bottom";						character.y -= offsetY;
+								   
+					  }	 
+				  } 
+				  }
+   return collisionDirection;
+			   } 
+			   
+			   
+ 
+
+
+
+</script>
+		
+  </body>
+</html>
